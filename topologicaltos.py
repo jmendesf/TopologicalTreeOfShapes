@@ -119,6 +119,10 @@ class TopologicalToS:
             for alt in node.compressed_proper_part.keys():
                 for pixel in node.compressed_proper_part[alt]:
                     set_px(im, pixel, self.compute_alt(node, alt, strategy))
+                if node.last_compressed is not None:
+                    if node.last_compressed.alt == node.interval_to_parent[1]:
+                        for pixel in node.last_compressed.proper_part:
+                            set_px(im, pixel, node.interval_to_parent[1])
             nodelist += node.children
         return im
 
